@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unstick Your Mind — turn a stuck thought into a song</title>
+<meta name="description" content="Answer some questions about something stuck in your mind. We shape your words into lyrics, and Suno turns them into a song — yours to keep.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#D6EDFF;
+  --sky-mid:#B8DCFA;
+  --sky-deep:#3A8FD4;
+  --sky-ink:#0D3A5C;
+  --mint:#C8EDDA;
+  --mint-mid:#9FDCBA;
+  --mint-deep:#2E8A60;
+  --mint-ink:#0C3D28;
+  --coral:#FFCFC4;
+  --coral-mid:#FFB0A0;
+  --page:#F0F8FF;
+  --white:#FDFEFF;
+  --ink:#14293D;
+  --muted:#4A6278;
+  --border:#C5DFF0;
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--sans);
+  font-weight:400;
+  color:var(--ink);
+  background:var(--page);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+em{font-style:italic}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2}
+
+/* Buttons */
+.btn{
+  display:inline-block;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:15px;
+  padding:13px 24px;
+  border-radius:999px;
+  border:1.5px solid transparent;
+  cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-fill{background:var(--sky-deep);color:#fff;box-shadow:0 4px 14px rgba(58,143,212,.28)}
+.btn-fill:hover{box-shadow:0 6px 20px rgba(58,143,212,.36)}
+.btn-mint{background:var(--white);color:var(--mint-deep);border-color:var(--mint-mid)}
+.btn-mint:hover{background:#fff}
+.btn-outline{background:transparent;color:var(--muted);border-color:var(--border)}
+
+/* Pills (nav) */
+.pill{
+  display:inline-block;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:14px;
+  padding:9px 18px;
+  border-radius:999px;
+  border:1.5px solid transparent;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.pill:hover{transform:translateY(-1px)}
+.pill-fill{background:var(--sky-deep);color:#fff}
+.pill-outline{background:transparent;color:var(--muted);border-color:var(--border)}
+
+a:focus-visible,button:focus-visible,.btn:focus-visible,.pill:focus-visible{
+  outline:2px solid var(--sky-deep);
+  outline-offset:2px;
+}
+
+/* Nav */
+nav{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.nav-inner{
+  max-width:1080px;
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.logo{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:20px;
+  color:var(--ink);
+}
+.logo span{color:var(--sky-deep);font-style:italic}
+.nav-actions{display:flex;align-items:center;gap:10px}
+
+/* Hero */
+.hero{
+  background:var(--sky);
+  padding:72px 24px 80px;
+  text-align:center;
+}
+.hero-inner{max-width:640px;margin:0 auto}
+.eyebrow{
+  display:inline-block;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:6px 14px;
+  border-radius:999px;
+  background:var(--sky-mid);
+  color:var(--sky-ink);
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:44px;
+  color:var(--ink);
+  margin-bottom:22px;
+}
+.hero h1 em{color:var(--sky-deep)}
+.hero-sub{
+  font-weight:300;
+  font-size:17px;
+  color:var(--muted);
+  max-width:560px;
+  margin:0 auto 32px;
+}
+.cta-row{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.meta-line{
+  font-size:13px;
+  font-weight:300;
+  color:var(--muted);
+}
+
+/* Ornament */
+.ornament{
+  text-align:center;
+  color:var(--border);
+  font-size:24px;
+  letter-spacing:.4em;
+  padding:36px 0;
+}
+
+/* Section base */
+.section{
+  max-width:1080px;
+  margin:0 auto;
+  padding:24px;
+}
+.section-label{
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--sky-deep);
+  margin-bottom:10px;
+  text-align:center;
+}
+.how h2,.how .intro{text-align:center}
+.how h2{font-size:30px;color:var(--ink);margin-bottom:14px}
+.how .intro{
+  font-weight:300;
+  color:var(--muted);
+  max-width:560px;
+  margin:0 auto 40px;
+}
+
+/* Steps */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:16px;
+}
+.step{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:16px;
+  padding:22px 20px;
+}
+.step:nth-child(odd){border-top:3px solid var(--sky-mid)}
+.step:nth-child(even){border-top:3px solid var(--mint-mid)}
+.step-num{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:38px;
+  line-height:1;
+  margin-bottom:14px;
+  display:block;
+}
+.step:nth-child(odd) .step-num{color:var(--sky-mid)}
+.step:nth-child(even) .step-num{color:var(--mint-mid)}
+.step-title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.step-desc{font-size:13px;font-weight:300;color:var(--muted)}
+
+/* Why it works */
+.why{
+  background:var(--mint);
+  border-radius:20px;
+  max-width:720px;
+  margin:40px auto;
+  padding:48px 56px;
+}
+.why .section-label{color:var(--mint-deep)}
+.why h2{
+  font-size:27px;
+  color:var(--mint-ink);
+  text-align:center;
+  margin-bottom:24px;
+}
+.why p{
+  font-weight:300;
+  color:#1E5940;
+  margin-bottom:16px;
+}
+.notice{
+  background:rgba(255,255,255,.55);
+  border:1.5px solid var(--mint-mid);
+  border-radius:12px;
+  padding:16px 18px;
+  font-size:13.5px;
+  font-weight:300;
+  color:#1E5940;
+  margin-top:24px;
+}
+
+/* By */
+.by{max-width:720px;margin:0 auto;padding:24px}
+.by-card{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:16px;
+  padding:32px;
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
+.avatar{
+  flex:0 0 auto;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:var(--coral);
+  border:2px solid var(--coral-mid);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:18px;
+  color:#7A2615;
+}
+.by-card h3{font-size:21px;color:var(--ink);margin-bottom:8px}
+.by-card p{font-weight:300;color:var(--muted);font-size:15px}
+
+/* Bottom CTA */
+.bottom-cta{
+  background:var(--sky-ink);
+  text-align:center;
+  padding:72px 24px;
+  margin-top:40px;
+}
+.bottom-cta-inner{max-width:600px;margin:0 auto}
+.eyebrow-dark{
+  display:inline-block;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:6px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  color:rgba(255,255,255,.75);
+  margin-bottom:22px;
+}
+.bottom-cta h2{
+  font-size:34px;
+  color:#fff;
+  margin-bottom:14px;
+}
+.bottom-cta h2 em{color:var(--coral-mid)}
+.bottom-cta .subline{
+  color:rgba(255,255,255,.5);
+  font-weight:300;
+  margin-bottom:30px;
+}
+.btn-white{background:#fff;color:var(--sky-ink)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
+.btn-ghost:hover{color:#fff}
+
+/* Footer */
+footer{
+  background:#0A2035;
+  padding:24px;
+}
+.footer-inner{
+  max-width:1080px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.footer-inner .copy{color:rgba(255,255,255,.28);font-size:12px}
+.footer-links{display:flex;gap:18px}
+.footer-links a{color:rgba(255,255,255,.32);font-size:12px;transition:color .15s ease}
+.footer-links a:hover{color:rgba(255,255,255,.7)}
+
+/* Responsive */
+@media (max-width:600px){
+  .nav-pn{display:none}
+  .hero{padding:56px 20px 64px}
+  .hero h1{font-size:30px}
+  .steps{grid-template-columns:1fr 1fr}
+  .why{padding:36px 20px}
+  .by{padding:24px 20px}
+  .by-card{padding:24px;flex-direction:column;align-items:center;text-align:center}
+  .cta-row{flex-direction:column}
+  .cta-row .btn{width:100%}
+  .bottom-cta h2{font-size:28px}
+}
+@media (max-width:400px){
+  .steps{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  .btn:hover,.pill:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#"><span>Unstick</span> Your Mind</a>
+    <div class="nav-actions">
+      <a class="pill pill-outline nav-pn" href="https://docs.google.com/document/d/1aFGHSfqTu_7kuMs2V5hhgD6GMFNs_vm2FsT4AiR2mcE/edit?usp=drive_link" target="_blank" rel="noopener">Privacy notice</a>
+      <a class="pill pill-fill" href="https://forms.gle/eYw8iZAUjwEfHxjD8" target="_blank" rel="noopener">Start the form →</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">A creative &amp; cathartic project</span>
+      <h1>The thought that won't leave — finally released into <em>a song you can sing with.</em></h1>
+      <p class="hero-sub">Answer some questions about something stuck in your mind. We shape your words into lyrics, and Suno turns them into a song — yours to keep.</p>
+      <div class="cta-row">
+        <a class="btn btn-fill" href="https://forms.gle/eYw8iZAUjwEfHxjD8" target="_blank" rel="noopener">Begin the intake form</a>
+        <a class="btn btn-mint" href="https://docs.google.com/document/d/1aFGHSfqTu_7kuMs2V5hhgD6GMFNs_vm2FsT4AiR2mcE/edit?usp=drive_link" target="_blank" rel="noopener">Read the privacy notice</a>
+      </div>
+      <p class="meta-line">Takes 20–30 minutes · No music background needed · Non-commercial</p>
+    </div>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <section class="section how">
+    <p class="section-label">How it works</p>
+    <h2>From stuck feeling to song</h2>
+    <p class="intro">A guided process in five steps. There are no right or wrong answers — only your experience, in your own words.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <p class="step-title">Reflect</p>
+        <p class="step-desc">Answer gentle questions about the thought, memory, or feeling that keeps returning.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <p class="step-title">Map</p>
+        <p class="step-desc">We help you trace its shape — what it holds, where it sits, what it's connected to.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <p class="step-title">Write</p>
+        <p class="step-desc">Your words become lyrics — honest lines drawn directly from what you shared.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <p class="step-title">Compose</p>
+        <p class="step-desc">Suno turns the lyrics into music, giving the feeling a melody and a voice.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <p class="step-title">Listen</p>
+        <p class="step-desc">The finished song is yours — to keep, to return to, and to sing along with.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <p class="section-label">Why it works</p>
+    <h2>When an experience lives only inside you, it's hard to look at it clearly.</h2>
+    <p>Giving it a shape — words, then sound — moves it from inside the mind to outside it. From there you can observe it, feel it as something that happened, and begin to let it settle.</p>
+    <p>The song stays with you. When the feeling returns, the song offers a way back to it in a structured, contained form — so it doesn't have to feel like it's happening all over again.</p>
+    <p class="notice">ℹ This is a creative and cathartic process, not therapy or clinical treatment. If you're in acute distress, please reach out to a mental-health professional first. This project is a complement to support, not a substitute.</p>
+  </section>
+
+  <section class="by">
+    <div class="by-card">
+      <div class="avatar">K&amp;K</div>
+      <div>
+        <h3>Klara and Kata</h3>
+        <p>This is a non-commercial project developed by two private individuals. The finished songs may be shared as part of a project album. Your participation — and whether you're named — is entirely your choice. Read the full privacy notice before completing the form.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-cta">
+    <div class="bottom-cta-inner">
+      <span class="eyebrow-dark">Your story, in song</span>
+      <h2>Put it outside yourself. Turn it into <em>something beautiful.</em></h2>
+      <p class="subline">Your words. Your feeling. Your song.</p>
+      <div class="cta-row">
+        <a class="btn btn-white" href="https://forms.gle/eYw8iZAUjwEfHxjD8" target="_blank" rel="noopener">Begin the intake form</a>
+        <a class="btn btn-ghost" href="https://docs.google.com/document/d/1aFGHSfqTu_7kuMs2V5hhgD6GMFNs_vm2FsT4AiR2mcE/edit?usp=drive_link" target="_blank" rel="noopener">Privacy notice</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="copy">© 2026 Unstick Your Mind · Klara and Kata · Non-commercial</span>
+    <div class="footer-links">
+      <a href="https://docs.google.com/document/d/1aFGHSfqTu_7kuMs2V5hhgD6GMFNs_vm2FsT4AiR2mcE/edit?usp=drive_link" target="_blank" rel="noopener">Privacy notice</a>
+      <a href="https://forms.gle/eYw8iZAUjwEfHxjD8" target="_blank" rel="noopener">Intake form</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
