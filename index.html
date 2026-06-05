@@ -105,11 +105,11 @@ nav{
 }
 .logo span{color:var(--sky-deep);font-style:italic}
 .nav-actions{display:flex;align-items:center;gap:10px}
-.lang-switch{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:500;color:var(--muted)}
-.lang-switch a{color:var(--muted);padding:2px 4px;border-radius:4px;transition:color .15s ease}
-.lang-switch a:hover{color:var(--ink)}
-.lang-switch .lang-active{color:var(--sky-deep);font-weight:700}
-.lang-switch .sep{color:var(--border)}
+.lang-switch{display:flex;align-items:center;gap:6px}
+.lang-switch a,.lang-switch .lang-active{display:inline-block;font-size:13px;font-weight:500;padding:6px 13px;border-radius:999px;border:1.5px solid var(--border);transition:background .15s ease,color .15s ease,border-color .15s ease}
+.lang-switch a{background:transparent;color:var(--muted)}
+.lang-switch a:hover{border-color:var(--sky-deep);color:var(--sky-deep)}
+.lang-switch .lang-active{background:var(--sky-deep);color:#fff;border-color:var(--sky-deep)}
 
 /* Hero */
 .hero{
@@ -156,6 +156,12 @@ nav{
   color:var(--muted);
 }
 
+/* Example track */
+.example-track{margin-top:40px;border-radius:12px;overflow:hidden}
+.example-label{font-size:13px;font-weight:400;color:var(--muted);text-align:center;margin-bottom:14px}
+.sc-credit{font-size:10px;color:#ccc;line-break:anywhere;word-break:normal;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight:100;margin-top:4px}
+.sc-credit a{color:#ccc;text-decoration:none}
+
 /* Ornament */
 .ornament{
   text-align:center;
@@ -180,6 +186,7 @@ nav{
   margin-bottom:10px;
   text-align:center;
 }
+.how{padding-top:56px}
 .how h2,.how .intro{text-align:center}
 .how h2{font-size:30px;color:var(--ink);margin-bottom:14px}
 .how .intro{
@@ -333,6 +340,7 @@ footer{
 /* Responsive */
 @media (max-width:600px){
   .nav-pn{display:none}
+  .lang-switch{gap:3px}
   .hero{padding:56px 20px 64px}
   .hero h1{font-size:30px}
   .steps{grid-template-columns:1fr 1fr}
@@ -379,9 +387,8 @@ footer{
       </div>
       <p class="meta-line">Takes 20–30 minutes · No music background needed · Non-commercial</p>
     </div>
-  </section>
 
-  <div class="ornament">· · ·</div>
+  </section>
 
   <section class="section how">
     <p class="section-label">How it works</p>
@@ -413,6 +420,12 @@ footer{
         <p class="step-title">Listen</p>
         <p class="step-desc">The finished song is yours — to keep, to return to, and to sing along with.</p>
       </div>
+    </div>
+
+    <div class="example-track">
+      <p class="example-label">Here's a finished song that was created by and for one of us</p>
+      <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2326682627&color=%238f5e55&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+      <div class="sc-credit"><a href="https://soundcloud.com/doxai-music" title="doxai" target="_blank" rel="noopener">doxai</a> · <a href="https://soundcloud.com/doxai-music/7000-refund-final" title="7000 Refund" target="_blank" rel="noopener">7000 Refund</a></div>
     </div>
   </section>
 
